@@ -1,28 +1,36 @@
-import { AgGridReact } from 'ag-grid-react'
-import 'ag-grid-community/styles/ag-grid.css'
-import 'ag-grid-community/styles/ag-theme-alpine.css'
+import { AgGridReact } from "ag-grid-react";
+import { ModuleRegistry } from "@ag-grid-community/core";
+import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 
-const EmployeeTable = ({ employees }) => {
-  const columnDefs = [
-    { field: 'name', headerName: 'Name' },
-    { field: 'email', headerName: 'Email' },
-    { field: 'department', headerName: 'Department' },
-    { field: 'position', headerName: 'Position' },
-  ]
+ModuleRegistry.registerModules([ClientSideRowModelModule]);
+
+function EmployeeTable({ rowData, columnDefs }) {
+  const defaultColDef = {
+    sortable: true,
+    filter: true,
+    resizable: true,
+    flex: 1,
+    minWidth: 150, // Increased minimum width for better column sizing
+  };
 
   return (
-    <div className="ag-theme-alpine w-full h-[600px]">
-      <AgGridReact
-        rowData={employees}
-        columnDefs={columnDefs}
-        defaultColDef={{
-          sortable: true,
-          filter: true,
-          resizable: true,
-        }}
-      />
+    <div className="ag-theme-alpine h-[calc(100vh-280px)] w-full bg-white rounded-xl shadow-lg">
+      <div style={{ height: "100%", width: "100%", overflow: "auto" }}>
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          animateRows={true}
+          rowHeight={48}
+          pagination={true}
+          enableCellTextSelection={true}
+          suppressHorizontalScroll={false}
+          suppressColumnVirtualisation={false}
+          suppressScrollOnNewData={true}
+        />
+      </div>
     </div>
-  )
+  );
 }
 
-export default EmployeeTable
+export default EmployeeTable;
