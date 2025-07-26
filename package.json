@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^32.3.5",
+    "@ag-grid-community/core": "^32.3.5",
     "@tailwindcss/vite": "^4.1.11",
     "ag-grid-community": "^34.0.2",
     "ag-grid-react": "^34.0.2",
